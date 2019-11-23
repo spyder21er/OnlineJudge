@@ -10,19 +10,13 @@ int query(int a, int b, int i = 1)
     if (a == b) return 1;
 
     // leaf
-    if (2 * i >= st.size()) return b - a + 1;
-
-    // also leaf
-    if (st[2 * i].first == 0 && st[2 * i + 1].first == 0)
+    if ((2 * i >= st.size()) || 
+        (st[2 * i].first == 0 && st[2 * i + 1].first == 0))
         return b - a + 1;
 
     // within range
     if (a <= st[i].second.first && b >= st[i].second.second)
         return st[i].first;
-
-    // outside range
-    if (a > st[i].second.second || b < st[i].second.first)
-        return 0;
 
     // not in left then look right
     if (a > st[2 * i].second.second)
