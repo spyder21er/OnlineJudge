@@ -17,7 +17,7 @@ vector<mib> DP(26, poptable);
  * This function converts a string of 'a' and 'b' into a
  * binary representation. For example "babbbaaabb" has 5 
  * groups: b, a, bbb, aaa, bb so it is converted into 5 
- * bits => 00011 where ones represent groups that can be
+ * bits => 00111 where ones represent groups that can be
  * popped and zeroes are groups that cannot be popped.
  * The first of the pair is the binary representation and
  * the second is the size.
