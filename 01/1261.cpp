@@ -59,8 +59,8 @@ bool pop(int str, int size)
     // has one group and poppable
     if (size == 1 && str == 1) return true;
 
-    // has one group and not poppable
-    if (size == 1 && str == 0) return false;
+    // has at least one group and nothing can be popped
+    if (size >= 1 && str == 0) return false;
 
     bitset<25> bs (str);
 
