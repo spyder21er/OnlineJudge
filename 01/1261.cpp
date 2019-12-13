@@ -13,15 +13,6 @@ typedef mib::iterator mibIter;
 mib poptable;
 vector<mib> DP(26, poptable);
 
-int can_be_popped(int n)
-{
-    mibIter it = poptable.find(n);
-    if (it == poptable.end()) // not found
-        return -1;
-    
-    return (int) it->second;
-}
-
 /**
  * This function converts a string of 'a' and 'b' into a
  * binary representation. For example "babbbaaabb" has 5 
