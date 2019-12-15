@@ -116,12 +116,7 @@ bool pop(int str, int size)
                 new_str <<= 1;
                 new_str += 1;
                 new_str <<= (i-1);
-                int right_part = 0;
-                for (int j = 0; j < (i-1); j++)
-                {
-                    right_part <<= 1;
-                    right_part += 1;
-                }
+                int right_part = (1 << (i - 1)) - 1;
                 new_str += (right_part & str);
 
                 // since we remove left and right bits, our size is now size - 2
