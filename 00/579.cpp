@@ -11,11 +11,9 @@ int main()
         if ((h + s) == 0)
             break;
         
-        d = (double) ((((h * 5) - s) + 60) % 60) * 1.0;
-        d *= 6.0;
-        d += (double) s * 30.0 / 60.0;
+        d = (double) ((((h * 5) - s) + 60) % 60) * 6.0;
+        d += (double) s / 2.0;
         if (d > 360.0) d -= 360.0;
-
         if (d < 180.0)
             printf("%.3f\n", d);
         else if (d == 180.0)
