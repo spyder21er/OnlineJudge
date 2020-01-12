@@ -1,63 +1,72 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+bool is_royal(char c) {
+    return (c == 'A' || c == 'K' || c == 'Q' || c == 'J');
+}
+
 int main()
 {
-    int A = 0, K = 1, Q = 2, J = 3, S = 4, H = 5, D = 6, C = 7, score;
-    map< char, int > cards;
+    int score;
+    map< char, int > suit_count;
     map< char, vector< char > > royals;
     map< char, bool > stopped;
     char suits[] = {'S', 'H', 'D', 'C'};
     char card_input[3];
 
-    while (scanf("%s", card_input) != EOF) {
-        cards.clear();
+    while (scanf("%s", &card_input) != EOF) {
+        suit_count.clear();
         royals.clear();
         stopped.clear();
+        score = 0;
 
-        cards[card_input[0]]++;
-        cards[card_input[1]]++;
-        royals[card_input[0]].push_back(card_input[1]);
+        if (is_royal(card_input[0])) { 
+            // add card suit if royal
+            royals[card_input[0]].push_back(card_input[1]);
+        }
+        suit_count[card_input[1]]++; // add card suit count
+
+        // if Ace stop the suit
         if (card_input[0] == 'A') stopped[card_input[1]] = true;
+
+        // do the same fo the remaining cards
         for (int i = 0; i < 12; i++) {
             scanf("%s", card_input);
-            cards[card_input[0]]++;
-            cards[card_input[1]]++;
-            royals[card_input[0]].push_back(card_input[1]);
+            if (is_royal(card_input[0])) { 
+                royals[card_input[0]].push_back(card_input[1]);
+            }
+            suit_count[card_input[1]]++; // add card suit count
             if (card_input[0] == 'A') stopped[card_input[1]] = true;
         }
 
         // Each ace counts 4 points. Each king counts 3 points. 
         // Each queen counts 2 points. Each jack counts one point.
-        score = cards['A'] * 4 + cards['K'] * 3 + cards['Q'] * 2 + cards['J'];
+        score = royals['A'].size() * 4 + royals['K'].size() * 3 + royals['Q'].size() * 2 + royals['J'].size();
 
-        // Subtract a point for any king of a suit in which the hand holds no other cards.
+        // Subtract a point for any king of a suit in which the hand holds no other suit_count.
         for (auto c : royals['K']) {
-            if (cards[c] == 1) {
+            if (suit_count[c] == 1) {
                 score -= 1;
-                break;
             }
             // stop if there are at least one other card
-            if (cards[c] >= 2) stopped[c] = true;
+            if (suit_count[c] >= 2) stopped[c] = true;
         }
 
         // Subtract a point for any queen in a suit in which the hand 
-        // holds only zero or one other cards.
+        // holds only zero or one other suit_count.
         for (auto c : royals['Q']) {
-            if (cards[c] >= 1 && cards[c] <= 2) {
+            if (suit_count[c] >= 1 && suit_count[c] <= 2) {
                 score -= 1;
-                break;
             }
-            // stop if there are at least two other cards
-            if (cards[c] >= 3) stopped[c] = true;
+            // stop if there are at least two other suit_count
+            if (suit_count[c] >= 3) stopped[c] = true;
         }
 
         // Subtract a point for any jack in a suit in which the hand 
-        // holds only zero, one, or two other cards.
+        // holds only zero, one, or two other suit_count.
         for (auto c : royals['J']) {
-            if (cards[c] <= 3 && cards[c] >= 1) {
+            if (suit_count[c] <= 3 && suit_count[c] >= 1) {
                 score -= 1;
-                break;
             }
         }
 
@@ -70,20 +79,20 @@ int main()
         char win;
         int most_card = 0;
 
-        // Add a point for each suit in which the hand contains exactly two cards.
         for (auto suit : suits) {
-            if (cards[suit] > most_card) {
-                most_card = cards[suit];
+            if (suit_count[suit] > most_card) {
+                most_card = suit_count[suit];
                 win = suit;
             }
 
-            if (cards[suit] == 2)
+            // Add a point for each suit in which the hand contains exactly two suit_count.
+            if (suit_count[suit] == 2)
                 score += 1;
             // Add two points for each suit in which the hand contains exactly one card.
-            else if (cards[suit] == 1)
+            else if (suit_count[suit] == 1)
                 score += 2;
-            // Add two points for each suit in which the hand contains no cards.
-            else if (cards[suit] == 0)
+            // Add two points for each suit in which the hand contains no suit_count.
+            else if (suit_count[suit] == 0)
                 score += 2;
             
         }
