@@ -1,8 +1,3 @@
-/**
- * Online Judge 1261 - String Popping
- * Author: leaf.mabz
- */
-
 #include <bits/stdc++.h>
 using namespace std;
 

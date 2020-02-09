@@ -15,7 +15,7 @@ int main() {
         memset(p, 0, sizeof(p));
         memset(q, 0, sizeof(q));
         for (int i = 0; i < N; i++) {
-            scanf("%d", p+i);
+            scanf("%d", p + i);
             p_total += p[i];
         }
         for (int i = 0; i < N; i++) {
