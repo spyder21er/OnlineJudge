@@ -7,9 +7,10 @@ bool defeats(const int a, const int b, const int heirs)
     return ((a+1) % heirs) == b;
 }
 
-void simulate(vector<vector<int> > &lands, int heirs)
+void simulate(vector < vector < int > > &lands, int heirs)
 {
     // identify defeated lands
+    // defeated lands is set to 1 else 0
     int defeated_lands[lands.size()][lands[0].size()];
     
     for (int i = 0; i < lands.size(); ++i)
