@@ -4,7 +4,7 @@ using namespace std;
 int find_max(bitset<55> d, int m) {
     for (int i = m; i < 55; i++) {
         if (!(d.test(i))) {
-            return i;
+            return (i > 52) ? -1 : i;
         }
     }
 }
@@ -28,12 +28,13 @@ int main() {
         bh = max(X, Y);
         bl = (X+Y) - bh;
 
-        if ( (bh < sl) || ( (bh < sm || bh < sh) && (bl < sl || bl < sm) ) )  {
+        if ((sm > bh) || (sm > bl && sh > bh)) {
             printf("%d\n", -1);
-        } else if (sh > bl) {
-
-            printf("%d\n", find_max(deck, sm));
-        } else if (sh > bl) {
+        } else if (bl > sh) {
+            printf("%d\n", find_max(deck, 1));
+        } else if (bh > sh && sm > bl) {
+            printf("%d\n", find_max(deck, sh));
+        } else {
             printf("%d\n", find_max(deck, sm));
         }
     }
