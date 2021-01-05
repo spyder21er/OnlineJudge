@@ -5,7 +5,7 @@ int main() {
     unsigned int n, root;
 
     while (scanf("%d", &n), n) {
-        root = sqrt(n);
+        root = (int) sqrt(n);
         if (root * root == n) {
             printf("yes\n");
         } else {
